@@ -43,14 +43,15 @@ A few components were used:
 
 ### How to run
 
-    ```bash
-    git clone <code>
-    docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
-    docker-compose build
-    docker-compose up
-    ```
+```bash
+git clone <code>
+docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
+docker-compose build
+docker-compose up
+```
 
 Open:
+
 - http://localhost:9090/ - to access prometheus
 - http://localhost:3000/ - to access grafana (login: admin / pass: admin)
 - http://localhost:8000/metrics - to access the internet-monitor metrics
