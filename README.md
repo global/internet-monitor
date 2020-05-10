@@ -59,6 +59,10 @@ Open:
 - http://localhost:8000/metrics - to access the internet-monitor metrics
 - http://localhost:8080/ - to access cAdvisor (you can also access the metrics through prometheus and grafana)
 
+This is the `Internet Monitor` you will get when opening grafana:
+
+![Grafana Internet Monitor Dashboard](docs/grafana.png "Grafana Internet Monitor Dashboard")
+
 ## Development
 
 ### Implementation details
