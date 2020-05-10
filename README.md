@@ -64,18 +64,18 @@ TODO
 
 ## Bugs and Known Issues
 
-    - Sometimes my docker for mac stop accepting inbound ICMP traffic and I need to restart it to get my `ping` working again
+- Sometimes my docker for mac stop accepting inbound ICMP traffic and I need to restart it to get my `ping` working again
 
 ## TODO
 
-    - Application configuration 
-      - We could support configuring the URL to download/upload
-      - ICMP host
-      - Alert Manager details
-    - Understand the impact of low start to the download/upload calculation (it is good enough for now, but we could do better)
-      - I still don't understand it fully, but I think the [RFC1323](https://tools.ietf.org/html/rfc1323) will help me
-    - Create a demo video
-    - See if we can run this code to run in a raspberryPi
-    - Try to be more accurate on download/upload speed using different sources of files
-    - Have options with multiple Ping addresses
-    - Configure alertmanager to send notifications of issues
+- Application configuration 
+  - We could support configuring the URL to download/upload
+  - ICMP host
+  - Alert Manager details
+- Understand the impact of low start to the download/upload calculation (it is good enough for now, but we could do better)
+  - I still don't understand it fully, but I think the [RFC1323](https://tools.ietf.org/html/rfc1323) will help me
+- Create a demo video
+- See if we can run this code to run in a raspberryPi
+- Try to be more accurate on download/upload speed using different sources of files
+- Have options with multiple Ping addresses
+- Configure alertmanager to send notifications of issues
