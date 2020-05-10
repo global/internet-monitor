@@ -79,7 +79,7 @@ def load_configuration(filename):
     """
     Load YAML configuration file and return a dict
     """
-    with open(filename) as conf:
+    with open(filename) as c:
         return yaml.load(conf, Loader=yaml.FullLoader)
 
 def main(config):
