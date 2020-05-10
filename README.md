@@ -54,12 +54,12 @@ Open:
 
 - http://localhost:9090/ - to access prometheus
 - http://localhost:3000/ - to access grafana (login: admin / pass: admin)
-  - There is a pre-configured dashboard called `Internet Monitor`. When logged in, click to access the information
+  - There is a pre-configured dashboard called `Internet Monitoring`. When logged in, click to access the information
   - To visualize all the data, wait about 5 min, as this is the time the download speed job kicks in
 - http://localhost:8000/metrics - to access the internet-monitor metrics
 - http://localhost:8080/ - to access cAdvisor (you can also access the metrics through prometheus and grafana)
 
-This is the `Internet Monitor` you will get when opening grafana:
+This is the `Internet Monitoring` you will get when opening grafana:
 
 ![Grafana Internet Monitor Dashboard](docs/grafana.png "Grafana Internet Monitor Dashboard")
 
