@@ -12,34 +12,34 @@ Of course you could run any speed test, or ping to detect if you network is down
 
 A few components were used:
 
-    - Python Job Scheduler, instrumented with Prometheus metrics, that triggers jobs to test ICMP echo request latency average RTT, download/upload performance
-    - Prometheus /metrics is added to the code and a few custom metrics to track latency, and download/upload speed (MB/s)
-    - Prometheus server using a container is used to pull the data
-    - Grafana is used to present the data and show the past
-    - Python standard logging with details about the job execution and the overall app messages
-    - Docker and docker-compose is used to build and run the monitor app, prometheus, grafana and the alert manager
-    - Pylint to check for pep8 issues
-    - Xmatters.com to push notifications of failures to my phone (I love being awaked 3pm if my internet fails! :D)
-    - cAdvisor exposes container information such as memory/cpu consumption for all containers running under docker-compose control
-    - Loki to show logs in grafana
+- Python Job Scheduler, instrumented with Prometheus metrics, that triggers jobs to test ICMP echo request latency average RTT, download/upload performance
+- Prometheus /metrics is added to the code and a few custom metrics to track latency, and download/upload speed (MB/s)
+- Prometheus server using a container is used to pull the data
+- Grafana is used to present the data and show the past
+- Python standard logging with details about the job execution and the overall app messages
+- Docker and docker-compose is used to build and run the monitor app, prometheus, grafana and the alert manager
+- Pylint to check for pep8 issues
+- Xmatters.com to push notifications of failures to my phone (I love being awaked 3pm if my internet fails! :D)
+- cAdvisor exposes container information such as memory/cpu consumption for all containers running under docker-compose control
+- Loki to show logs in grafana
 
 ## Tech stack
 
-    - Python 3
-    - Docker
-    - docker-compose
-    - prometheus
-    - alertmanager
-    - grafana
-    - pylint
-    - cAdvisor
+- Python 3
+- Docker
+- docker-compose
+- prometheus
+- alertmanager
+- grafana
+- pylint
+- cAdvisor
 
 ## Running the code
 
 ### Pre-requisites
 
-    - A working docker and docker-compose
-    - Git to download the code
+- A working docker and docker-compose
+- Git to download the code
 
 ### How to run
 
@@ -51,10 +51,10 @@ A few components were used:
     ```
 
 Open:
-    - http://localhost:9090/ - to access prometheus
-    - http://localhost:3000/ - to access grafana (login: admin / pass: admin)
-    - http://localhost:8000/metrics - to access the internet-monitor metrics
-    - http://localhost:8080/ - to access cAdvisor (you can also access the metrics through prometheus and grafana)
+- http://localhost:9090/ - to access prometheus
+- http://localhost:3000/ - to access grafana (login: admin / pass: admin)
+- http://localhost:8000/metrics - to access the internet-monitor metrics
+- http://localhost:8080/ - to access cAdvisor (you can also access the metrics through prometheus and grafana)
 
 ## Development
 
