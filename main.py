@@ -79,8 +79,8 @@ def load_configuration(filename):
     """
     Load YAML configuration file and return a dict
     """
-    with open(filename) as c:
-        return yaml.load(c, Loader=yaml.FullLoader)
+    with open(filename) as conf:
+        return yaml.load(conf, Loader=yaml.FullLoader)
 
 def main(config):
     """
@@ -114,14 +114,14 @@ def main(config):
 if __name__ == '__main__':
 
     # load app configuration
-    config = load_configuration('monitor.yml')
+    CONFIG = load_configuration('monitor.yml')
 
     # Setting up logging
     LOGGER = logging.getLogger('internet.monitor')
-    LOGGER.setLevel(config['logLevel'])
+    LOGGER.setLevel(CONFIG['logLevel'])
     # create console handler with a higher log level
     CH = logging.StreamHandler()
-    CH.setLevel(config['logLevel'])
+    CH.setLevel(CONFIG['logLevel'])
     # create formatter and add it to the handlers
     FORMATTER = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -129,10 +129,10 @@ if __name__ == '__main__':
     # add the handlers to the LOGGER and apscheduler LOGGER
     LOGGER.addHandler(CH)
     logging.getLogger('apscheduler.executors.default').addHandler(CH)
-    logging.getLogger('apscheduler.executors.default').setLevel(config['logLevel'])
+    logging.getLogger('apscheduler.executors.default').setLevel(CONFIG['logLevel'])
 
     try:
-        main(config)
+        main(CONFIG)
     except KeyboardInterrupt:
         LOGGER.info('Shutting down internet-monitor...')
         sys.exit(0)
