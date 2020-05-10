@@ -50,8 +50,6 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-    depends_on: 
-      - im
     logging:
       driver: loki
       options:
@@ -62,26 +60,5 @@ services:
       ports:
         - "3100:3100"
       command: -config.file=/etc/loki/local-config.yaml
-
-  promtail:
-    image: grafana/promtail:1.4.1
-    volumes:
-      - /var/log:/var/log
-    command: -config.file=/etc/promtail/docker-config.yaml
-
-
-  fluentd:
-      image: grafana/fluent-plugin-loki:master
-      volumes:
-        - ./fluentd/fluentd.conf:/fluentd/etc/fluentd.conf
-      links:
-        - loki
-      ports:
-        - "24224:24224"
-        - "24224:24224/udp"
-      logging:
-        driver: loki
-        options:
-          loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
       
     
