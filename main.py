@@ -5,6 +5,7 @@ This app monitors your internet connection and generates prometheus metrics.
 import sys
 import logging
 import requests
+import yaml
 
 from pytz import utc
 from apscheduler.schedulers.background import BlockingScheduler
@@ -60,8 +61,6 @@ def download_speed(url):
     """
     DOWNLOAD_REQUESTS.inc()
 
-    # url = 'http://212.183.159.230/512MB.zip'
-
     try:
         resp = requests.get(url)
         DOWNLOAD_REQUEST_SIZE.set(len(resp.content))
@@ -71,14 +70,19 @@ def download_speed(url):
         DOWNLOAD_FAILURES.inc()
 
 
-# runs once every minute
 def upload_speed():
     """
     Calculates the upload speed based on http POST method
     """
 
+def load_configuration(filename):
+    """
+    Load YAML configuration file and return a dict
+    """
+    with open(filename) as c:
+        return yaml.load(c, Loader=yaml.FullLoader)
 
-def main():
+def main(config):
     """
     Setup logging, start the job scheduler and serve prometheus metrics
     """
@@ -96,12 +100,11 @@ def main():
     scheduler = BlockingScheduler(
         executors=executors, job_defaults=job_defaults, timezone=utc)
 
-    url = "http://212.183.159.230/512MB.zip"
-    latency_dest = '1.1.1.1'
+
     scheduler.add_job(download_speed, 'interval', seconds=600,
-                      args=[url], id='download_speed')
+                      args=[config['downloadURL']], id='download_speed')
     scheduler.add_job(latency, 'interval', seconds=60,
-                      args=[latency_dest], id='ping')
+                      args=[config['icmpDestHost']], id='ping')
 
     # start prometheus server to serve /metrics and /describe endpoints
     start_http_server(8000)
@@ -110,12 +113,15 @@ def main():
 
 if __name__ == '__main__':
 
+    # load app configuration
+    config = load_configuration('monitor.yml')
+
     # Setting up logging
     LOGGER = logging.getLogger('internet.monitor')
-    LOGGER.setLevel(logging.INFO)
+    LOGGER.setLevel(config['logLevel'])
     # create console handler with a higher log level
     CH = logging.StreamHandler()
-    CH.setLevel(logging.DEBUG)
+    CH.setLevel(config['logLevel'])
     # create formatter and add it to the handlers
     FORMATTER = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -123,10 +129,10 @@ if __name__ == '__main__':
     # add the handlers to the LOGGER and apscheduler LOGGER
     LOGGER.addHandler(CH)
     logging.getLogger('apscheduler.executors.default').addHandler(CH)
-    logging.getLogger('apscheduler.executors.default').setLevel(logging.INFO)
+    logging.getLogger('apscheduler.executors.default').setLevel(config['logLevel'])
 
     try:
-        main()
+        main(config)
     except KeyboardInterrupt:
         LOGGER.info('Shutting down internet-monitor...')
         sys.exit(0)

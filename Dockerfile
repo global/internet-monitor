@@ -6,6 +6,7 @@ WORKDIR /app
 
 COPY requirements.txt /app
 COPY main.py /app
+COPY monitor.yml /app
 
 RUN pip3 install -r requirements.txt
 

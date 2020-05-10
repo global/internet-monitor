@@ -54,6 +54,8 @@ Open:
 
 - http://localhost:9090/ - to access prometheus
 - http://localhost:3000/ - to access grafana (login: admin / pass: admin)
+  - There is a pre-configured dashboard called `Internet Monitor`. When logged in, click to access the information
+  - To visualize all the data, wait about 5 min, as this is the time the download speed job kicks in
 - http://localhost:8000/metrics - to access the internet-monitor metrics
 - http://localhost:8080/ - to access cAdvisor (you can also access the metrics through prometheus and grafana)
 
@@ -69,9 +71,7 @@ TODO
 
 ## TODO
 
-- Application configuration 
-  - We could support configuring the URL to download/upload
-  - ICMP host
+- Application configuration
   - Alert Manager details
 - Understand the impact of low start to the download/upload calculation (it is good enough for now, but we could do better)
   - I still don't understand it fully, but I think the [RFC1323](https://tools.ietf.org/html/rfc1323) will help me

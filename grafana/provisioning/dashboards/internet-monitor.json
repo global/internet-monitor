@@ -508,7 +508,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "ICMP Jitter",
+      "title": "ICMP Jitter (ms)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -526,7 +526,7 @@
       "yaxes": [
         {
           "$$hashKey": "object:457",
-          "format": "short",
+          "format": "ms",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -832,8 +832,8 @@
       "datasource": "Loki",
       "description": "",
       "gridPos": {
-        "h": 4,
-        "w": 16,
+        "h": 10,
+        "w": 21,
         "x": 0,
         "y": 30
       },
@@ -888,5 +888,5 @@
   "variables": {
     "list": []
   },
-  "version": 1
+  "version": 2
 }

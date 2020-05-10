@@ -4,3 +4,4 @@ SQLAlchemy
 prometheus_client
 icmplib
 requests
+PyYAML

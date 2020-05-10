@@ -1,0 +1,3 @@
+icmpDestHost: '1.1.1.1'
+logLevel: 'INFO'
+downloadURL: 'http://212.183.159.230/512MB.zip'
