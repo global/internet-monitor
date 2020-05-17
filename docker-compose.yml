@@ -24,7 +24,7 @@ services:
         - '--storage.tsdb.path=/prometheus'
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:7.0.0-beta3
     depends_on:
       - prometheus
     ports:
