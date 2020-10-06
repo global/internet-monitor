@@ -23,7 +23,7 @@ PING_REQUESTS = Counter('internet_monitor_ping_total',
 PING_FAILURES = Counter('internet_monitor_ping_failures_total',
                         'Total ping requests failed made to 1.1.1.1')
 PING_PACKET_LOSS = Counter('internet_monitor_ping_packet_loss',
-                         'Number of packets lost while checking latency')
+                           'Number of packets lost while checking latency')
 PING_JITTER = Gauge('internet_monitor_ping_jitter', 'ICMP Jitter')
 UP = Gauge('internet_monitor_up', 'Internet is up or down')
 PING_LATENCY = Summary(
@@ -38,6 +38,7 @@ DOWNLOAD_FAILURES = Counter(
     'internet_monitor_download_failures', 'Number of times the download job fails')
 
 LOGGER = logging.getLogger('internet.monitor')
+
 
 def latency(dest):
     """
@@ -79,12 +80,14 @@ def upload_speed():
     Calculates the upload speed based on http POST method
     """
 
+
 def load_configuration(filename):
     """
     Load YAML configuration file and return a dict
     """
     with open(filename) as conf:
         return yaml.load(conf, Loader=yaml.FullLoader)
+
 
 def main(config):
     """
@@ -104,17 +107,16 @@ def main(config):
     scheduler = BlockingScheduler(
         executors=executors, job_defaults=job_defaults, timezone=utc)
 
-
     start_job_date = datetime.datetime.now() - datetime.timedelta(minutes=4)
     scheduler.add_job(download_speed, 'interval', seconds=600,
                       args=[config['downloadURL']], id='download_speed', start_date=start_job_date)
     scheduler.add_job(latency, 'interval', seconds=60,
                       args=[config['icmpDestHost']], id='ping')
 
-    
     # start prometheus server to serve /metrics and /describe endpoints
     start_http_server(8000)
     scheduler.start()
+
 
 if __name__ == '__main__':
 
@@ -133,7 +135,8 @@ if __name__ == '__main__':
     # add the handlers to the LOGGER and apscheduler LOGGER
     LOGGER.addHandler(CH)
     logging.getLogger('apscheduler.executors.default').addHandler(CH)
-    logging.getLogger('apscheduler.executors.default').setLevel(CONFIG['logLevel'])
+    logging.getLogger('apscheduler.executors.default').setLevel(
+        CONFIG['logLevel'])
 
     try:
         main(CONFIG)

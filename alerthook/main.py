@@ -4,13 +4,13 @@ import logging
 app = Flask(__name__)
 LOGGER = logging.getLogger('alerthook')
 
+
 @app.route("/", methods=["GET", "POST"])
 def echo():
     data = request.get_json()
     LOGGER.info(data)
     return data
- 
- 
+
 
 if __name__ == "__main__":
     # Setting up logging
