@@ -1,0 +1,9 @@
+groups:
+- name: example
+  rules:
+  - alert: LowInternetSpeed
+    expr: ((internet_monitor_download_size_bytes / (rate(internet_monitor_download_duration_seconds_sum[15m])/rate(internet_monitor_download_duration_seconds_count[15m]))) / 1024 / 1024) < 30
+    labels:
+      severity: page
+    annotations:
+      summary: LowInternetSpeed

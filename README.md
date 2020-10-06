@@ -2,7 +2,7 @@
 
 ## What
 
-This is a personal project with a simple goal of monitoring my internet provider performance: lantency and download/upload speed.
+This is a personal project with a simple goal of monitoring my internet provider performance: lantency and download/upload speed. Also, it is an opportunity to connect multiple technologies together and deliver an observability framework comprising of alerting, monitoring and logging (tracing will come later).
 
 ## Why
 
@@ -19,9 +19,11 @@ A few components were used:
 - Python standard logging with details about the job execution and the overall app messages
 - Docker and docker-compose is used to build and run the monitor app, prometheus, grafana and the alert manager
 - Pylint to check for pep8 issues
-- Xmatters.com to push notifications of failures to my phone (I love being awaked 3pm if my internet fails! :D)
 - cAdvisor exposes container information such as memory/cpu consumption for all containers running under docker-compose control
 - Loki to show logs in grafana
+- Node exporter to gather node metrics
+- Alertmanager to manager alerts sent from prometheus
+- A simple python webhook to challenge
 
 ## Tech stack
 
@@ -33,6 +35,8 @@ A few components were used:
 - grafana
 - pylint
 - cAdvisor
+- node-exporter
+- loki
 
 ## Running the code
 
@@ -65,22 +69,15 @@ This is the `Internet Monitoring` you will get when opening grafana:
 
 ## Development
 
-### Implementation details
-
-TODO
-
 ## Bugs and Known Issues
 
 - Sometimes my docker for mac stop accepting inbound ICMP traffic and I need to restart it to get my `ping` working again
 
 ## TODO
 
-- Application configuration
-  - Alert Manager details
 - Understand the impact of low start to the download/upload calculation (it is good enough for now, but we could do better)
   - I still don't understand it fully, but I think the [RFC1323](https://tools.ietf.org/html/rfc1323) will help me
 - Create a demo video
 - See if we can run this code to run in a raspberryPi
 - Try to be more accurate on download/upload speed using different sources of files
 - Have options with multiple Ping addresses
-- Configure alertmanager to send notifications of issues

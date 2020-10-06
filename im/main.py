@@ -6,6 +6,7 @@ import sys
 import logging
 import requests
 import yaml
+import datetime
 
 from pytz import utc
 from apscheduler.schedulers.background import BlockingScheduler
@@ -21,7 +22,7 @@ PING_REQUESTS = Counter('internet_monitor_ping_total',
                         'Total ping requests made to 1.1.1.1')
 PING_FAILURES = Counter('internet_monitor_ping_failures_total',
                         'Total ping requests failed made to 1.1.1.1')
-PING_PACKET_LOSS = Gauge('internet_monitor_ping_packet_loss',
+PING_PACKET_LOSS = Counter('internet_monitor_ping_packet_loss',
                          'Number of packets lost while checking latency')
 PING_JITTER = Gauge('internet_monitor_ping_jitter', 'ICMP Jitter')
 UP = Gauge('internet_monitor_up', 'Internet is up or down')
@@ -36,6 +37,8 @@ DOWNLOAD_REQUESTS = Counter(
 DOWNLOAD_FAILURES = Counter(
     'internet_monitor_download_failures', 'Number of times the download job fails')
 
+LOGGER = logging.getLogger('internet.monitor')
+
 def latency(dest):
     """
     Calculate the average rtt time using ICMP echo request
@@ -45,9 +48,10 @@ def latency(dest):
     try:
         with PING_FAILURES.count_exceptions():
             host = ping(dest, count=2, interval=0.5)
-        PING_LATENCY.observe(host.avg_rtt / 1000)
-        PING_PACKET_LOSS.set(host.packet_loss)
-        PING_JITTER.set(host.max_rtt - host.min_rtt)
+        PING_LATENCY.observe(host.avg_rtt * 1000)
+        print("Ping latency: ", host.avg_rtt * 1000)
+        PING_PACKET_LOSS.inc(host.packet_loss)
+        PING_JITTER.set((host.max_rtt - host.min_rtt) * 1000)
         UP.set(1)
     except Exception:
         LOGGER.error('Could not process ICMP Echo requests.')
@@ -101,15 +105,16 @@ def main(config):
         executors=executors, job_defaults=job_defaults, timezone=utc)
 
 
+    start_job_date = datetime.datetime.now() - datetime.timedelta(minutes=4)
     scheduler.add_job(download_speed, 'interval', seconds=600,
-                      args=[config['downloadURL']], id='download_speed')
+                      args=[config['downloadURL']], id='download_speed', start_date=start_job_date)
     scheduler.add_job(latency, 'interval', seconds=60,
                       args=[config['icmpDestHost']], id='ping')
 
+    
     # start prometheus server to serve /metrics and /describe endpoints
     start_http_server(8000)
     scheduler.start()
-
 
 if __name__ == '__main__':
 
@@ -117,7 +122,6 @@ if __name__ == '__main__':
     CONFIG = load_configuration('monitor.yml')
 
     # Setting up logging
-    LOGGER = logging.getLogger('internet.monitor')
     LOGGER.setLevel(CONFIG['logLevel'])
     # create console handler with a higher log level
     CH = logging.StreamHandler()
