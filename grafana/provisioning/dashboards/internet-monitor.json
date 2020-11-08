@@ -43,6 +43,12 @@
       ],
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -137,6 +143,43 @@
       "cacheTimeout": null,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "displayName": "",
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "Monitor Down?",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 62,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 15
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 20
+              }
+            ]
+          },
+          "unit": "MBs"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 7,
         "w": 4,
@@ -146,51 +189,18 @@
       "id": 6,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "mean"
           ],
-          "defaults": {
-            "mappings": [
-              {
-                "id": 0,
-                "op": "=",
-                "text": "Monitor Down?",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "max": 62,
-            "min": 0,
-            "nullValueMode": "connected",
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "semi-dark-red",
-                  "value": null
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 15
-                },
-                {
-                  "color": "semi-dark-green",
-                  "value": 20
-                }
-              ]
-            },
-            "title": "",
-            "unit": "MBs"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "orientation": "horizontal",
         "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "showThresholdMarkers": true
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.3.1",
       "targets": [
         {
           "expr": "(internet_monitor_download_size_bytes / (rate(internet_monitor_download_duration_seconds_sum[15m])/rate(internet_monitor_download_duration_seconds_count[15m]))) / 1024 / 1024",
@@ -209,61 +219,142 @@
       "cacheTimeout": null,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "displayName": "",
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "Upload Speed",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 6.25,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "dark-yellow",
+                "value": 2
+              },
+              {
+                "color": "dark-green",
+                "value": 3
+              }
+            ]
+          },
+          "unit": "MBs"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 7,
         "w": 4,
         "x": 8,
         "y": 1
       },
+      "id": 24,
+      "links": [],
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.3.1",
+      "targets": [
+        {
+          "expr": "(internet_monitor_upload_size_bytes / 1024 / 1024) / (rate(internet_monitor_upload_duration_seconds_sum[3h]) / rate(internet_monitor_upload_duration_seconds_count[3h]))",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Upload Speed",
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "displayName": "",
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "Monitor Down?",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 62,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 40
+              },
+              {
+                "color": "dark-red",
+                "value": 60
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
       "id": 22,
       "links": [],
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "mean"
           ],
-          "defaults": {
-            "mappings": [
-              {
-                "id": 0,
-                "op": "=",
-                "text": "Monitor Down?",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "max": 62,
-            "min": 0,
-            "nullValueMode": "connected",
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "dark-green",
-                  "value": null
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 40
-                },
-                {
-                  "color": "dark-red",
-                  "value": 60
-                }
-              ]
-            },
-            "title": "",
-            "unit": "ms"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal"
+        "textMode": "auto"
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.3.1",
       "targets": [
         {
           "expr": "rate(internet_monitor_ping_latency_seconds_sum[5m])/rate(internet_monitor_ping_latency_seconds_count[5m])*1000",
@@ -282,64 +373,69 @@
       "cacheTimeout": null,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "displayName": "",
+          "mappings": [
+            {
+              "id": 0,
+              "op": "=",
+              "text": "Monitor Down?",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "max": 62,
+          "min": 0,
+          "nullValueMode": "connected",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 4
+              },
+              {
+                "color": "dark-red",
+                "value": 6
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 7,
         "w": 4,
-        "x": 12,
+        "x": 16,
         "y": 1
       },
       "id": 23,
       "links": [],
       "options": {
         "colorMode": "value",
-        "fieldOptions": {
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "mean"
           ],
-          "defaults": {
-            "mappings": [
-              {
-                "id": 0,
-                "op": "=",
-                "text": "Monitor Down?",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "max": 62,
-            "min": 0,
-            "nullValueMode": "connected",
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "dark-green",
-                  "value": null
-                },
-                {
-                  "color": "#EAB839",
-                  "value": 4
-                },
-                {
-                  "color": "dark-red",
-                  "value": 6
-                }
-              ]
-            },
-            "title": "",
-            "unit": "ms"
-          },
-          "overrides": [],
+          "fields": "",
           "values": false
         },
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal"
+        "textMode": "auto"
       },
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.3.1",
       "targets": [
         {
-          "expr": "internet_monitor_ping_jitter",
+          "expr": "internet_monitor_ping_jitter_seconds",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -372,11 +468,19 @@
       "dashes": false,
       "datasource": "Prometheus",
       "description": "Shows Average RTT ICMP Echo request to 1.1.1.1 DNS servers.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [],
+          "unit": "ms"
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
+        "w": 10,
         "x": 0,
         "y": 9
       },
@@ -395,9 +499,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -407,7 +512,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(internet_monitor_ping_latency_seconds_sum[5m])/rate(internet_monitor_ping_latency_seconds_count[5m])*1000",
+          "expr": "rate(internet_monitor_ping_latency_seconds_sum[5m])/rate(internet_monitor_ping_latency_seconds_count[5m]) * 1000",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -417,7 +522,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Average RTT (ms)",
+      "title": "Average ICMP RTT",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -435,8 +540,8 @@
       "yaxes": [
         {
           "$$hashKey": "object:494",
-          "format": "short",
-          "label": "RTT (ms)",
+          "format": "ms",
+          "label": "RTT",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -463,12 +568,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [],
+          "unit": "s"
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 8,
+        "w": 10,
+        "x": 10,
         "y": 9
       },
       "hiddenSeries": false,
@@ -486,9 +600,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -498,7 +613,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "internet_monitor_ping_jitter",
+          "expr": "internet_monitor_ping_jitter_seconds",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -508,7 +623,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "ICMP Jitter (ms)",
+      "title": "ICMP Jitter",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -526,8 +641,8 @@
       "yaxes": [
         {
           "$$hashKey": "object:457",
-          "format": "ms",
-          "label": null,
+          "format": "s",
+          "label": "Jitter",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -554,11 +669,18 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
+        "w": 10,
         "x": 0,
         "y": 16
       },
@@ -577,9 +699,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -647,12 +770,20 @@
       "dashes": false,
       "datasource": null,
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": [],
+          "unit": "MBs"
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 8,
-        "x": 8,
+        "w": 10,
+        "x": 10,
         "y": 16
       },
       "hiddenSeries": false,
@@ -670,9 +801,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -682,7 +814,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "internet_monitor_ping_packet_loss",
+          "expr": "(internet_monitor_upload_size_bytes / 1024 / 1024) / (rate(internet_monitor_upload_duration_seconds_sum[3h]) / rate(internet_monitor_upload_duration_seconds_count[3h]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -692,7 +824,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Number of packet loss over ICMP request",
+      "title": "Upload Speed",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -710,7 +842,7 @@
       "yaxes": [
         {
           "$$hashKey": "object:73",
-          "format": "short",
+          "format": "MBs",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -740,11 +872,18 @@
       "dashes": false,
       "datasource": "Prometheus",
       "description": "Shows internet availability over time\nUP = 1\nDown = 0",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
-        "w": 8,
+        "h": 6,
+        "w": 20,
         "x": 0,
         "y": 23
       },
@@ -764,10 +903,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "6.7.3",
+      "pluginVersion": "7.3.1",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -831,11 +970,17 @@
     {
       "datasource": "Loki",
       "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 10,
         "w": 21,
         "x": 0,
-        "y": 30
+        "y": 29
       },
       "id": 14,
       "options": {
@@ -858,14 +1003,14 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 22,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -885,8 +1030,5 @@
   "timezone": "utc",
   "title": "Internet Monitoring",
   "uid": "hfxak36Zk",
-  "variables": {
-    "list": []
-  },
-  "version": 2
+  "version": 1
 }

@@ -18,12 +18,11 @@ A few components were used:
 - Grafana is used to present the data and show the past
 - Python standard logging with details about the job execution and the overall app messages
 - Docker and docker-compose is used to build and run the monitor app, prometheus, grafana and the alert manager
-- Pylint to check for pep8 issues
+- Flake8 to check for pep8 issues
 - cAdvisor exposes container information such as memory/cpu consumption for all containers running under docker-compose control
 - Loki to show logs in grafana
 - Node exporter to gather node metrics
 - Alertmanager to manager alerts sent from prometheus
-- A simple python webhook to challenge
 
 ## Tech stack
 
@@ -33,8 +32,9 @@ A few components were used:
 - prometheus
 - alertmanager
 - grafana
-- pylint
+- flake8
 - cAdvisor
+- GNU Make
 - node-exporter
 - loki
 
@@ -48,10 +48,11 @@ A few components were used:
 ### How to run
 
 ```bash
-git clone <code>
-docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
-docker-compose build
-docker-compose up
+git clone https://github.com/global/internet-monitor.git
+make init
+make build
+make run
+make urls
 ```
 
 Open:
@@ -78,6 +79,6 @@ This is the `Internet Monitoring` you will get when opening grafana:
 - Understand the impact of low start to the download/upload calculation (it is good enough for now, but we could do better)
   - I still don't understand it fully, but I think the [RFC1323](https://tools.ietf.org/html/rfc1323) will help me
 - Create a demo video
-- See if we can run this code to run in a raspberryPi
-- Try to be more accurate on download/upload speed using different sources of files
-- Have options with multiple Ping addresses
+- Integrate our alerthook with alertmanager
+- Deploy into kubernetes
+- Add container resources dashboard into grafana

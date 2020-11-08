@@ -1,3 +1,4 @@
 grafana/data
 prometheus/data
 *.swp
+.vscode

@@ -4,6 +4,8 @@ services:
   im:
     build:
       context: ./im
+      args:
+        appversion: 0.3.0
     ports:
       - "8000:8000"
     logging:
@@ -11,17 +13,17 @@ services:
       options:
         loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
 
-  alerthook:
-    build:
-      context: ./alerthook
-    environment:
-      - PYTHONUNBUFFERED=1
-    ports:
-      - "5000:5000"
-    # logging:
-    #   driver: loki
-    #   options:
-    #     loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
+  # alerthook:
+  #   build:
+  #     context: ./alerthook
+  #   environment:
+  #     - PYTHONUNBUFFERED=1
+  #   ports:
+  #     - "5000:5000"
+  #   # logging:
+  #   #   driver: loki
+  #   #   options:
+  #   #     loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
 
   prometheus:
       image: prom/prometheus:latest
