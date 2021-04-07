@@ -203,7 +203,7 @@
       "pluginVersion": "7.3.1",
       "targets": [
         {
-          "expr": "(internet_monitor_download_size_bytes / (rate(internet_monitor_download_duration_seconds_sum[15m])/rate(internet_monitor_download_duration_seconds_count[15m]))) / 1024 / 1024",
+          "expr": "internet_monitor_download_size_bytes / (internet_monitor_download_duration_seconds_sum / internet_monitor_download_duration_seconds_count) / 1024 / 1014",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -279,7 +279,7 @@
       "pluginVersion": "7.3.1",
       "targets": [
         {
-          "expr": "(internet_monitor_upload_size_bytes / 1024 / 1024) / (rate(internet_monitor_upload_duration_seconds_sum[3h]) / rate(internet_monitor_upload_duration_seconds_count[3h]))",
+          "expr": "internet_monitor_upload_size_bytes / 1024 / 1014 / (internet_monitor_upload_duration_seconds_sum / internet_monitor_upload_duration_seconds_count)",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -542,9 +542,10 @@
           "$$hashKey": "object:494",
           "format": "ms",
           "label": "RTT",
+          "decimals": 2,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": 0,
           "show": true
         },
         {
@@ -712,7 +713,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(internet_monitor_download_size_bytes / (rate(internet_monitor_download_duration_seconds_sum[15m])/rate(internet_monitor_download_duration_seconds_count[15m]))) / 1024 / 1024",
+          "expr": "internet_monitor_download_size_bytes / (internet_monitor_download_duration_seconds_sum / internet_monitor_download_duration_seconds_count) / 1024 / 1014",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -814,7 +815,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(internet_monitor_upload_size_bytes / 1024 / 1024) / (rate(internet_monitor_upload_duration_seconds_sum[3h]) / rate(internet_monitor_upload_duration_seconds_count[3h]))",
+          "expr": "internet_monitor_upload_size_bytes / 1024 / 1014 / (internet_monitor_upload_duration_seconds_sum / internet_monitor_upload_duration_seconds_count)",
           "interval": "",
           "legendFormat": "",
           "refId": "A"

@@ -4,22 +4,20 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pytz = "*"
-apscheduler = "*"
-SQLAlchemy = "*"
-prometheus_client = "*"
-icmplib = "*"
-requests = "*"
-PyYAML = "*"
+pytest = "*"
+bandit = "*"
+flake8 = "*"
+mypy = "*"
+black = "*"
+coverage = "*"
+wheel = "*"
+isort = "*"
 
 [packages]
-pytz = "*"
 apscheduler = "*"
-SQLAlchemy = "*"
 prometheus_client = "*"
 icmplib = "*"
 requests = "*"
-PyYAML = "*"
 
 [requires]
 python_version = "3.8"

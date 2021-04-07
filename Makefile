@@ -1,7 +1,7 @@
 .PHONY: init build run stop urls help
 
 init:
-	docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
+	docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions || true
 
 build:
 	docker-compose build
@@ -29,4 +29,5 @@ help:
 	@echo " build   		build all containers"
 	@echo " run			Run all containers using docker-compose"
 	@echo " stop			Run all containers using docker-compose"
+	@echo " urls			List services URLs running on docker-compose"
 	@echo " help			display this information"
