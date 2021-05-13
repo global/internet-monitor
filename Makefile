@@ -1,7 +1,9 @@
 .PHONY: init build run stop urls help
+.SILENT: init
 
 init:
-	docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions || true
+	@echo Installing loki docker plugin...
+	docker plugin ls | grep loki > /dev/null || docker plugin install  grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
 
 build:
 	docker-compose build
