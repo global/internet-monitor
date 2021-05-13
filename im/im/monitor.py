@@ -80,15 +80,15 @@ def latency(dest):
     PING_REQUESTS.inc()
     try:
         with PING_FAILURES.count_exceptions():
-            LOGGER.debug('PING - destination: ' + str(dest))
+            LOGGER.debug("PING - destination: " + str(dest))
             host = ping(str(dest), count=2, interval=0.5)
         PING_LATENCY.observe(host.avg_rtt / 1000)
         PING_PACKET_LOSS.inc(host.packet_loss)
         PING_JITTER.set((host.max_rtt - host.min_rtt) / 1000)
-        LOGGER.debug('PING - max_rtt: ' + str(host.max_rtt))
-        LOGGER.debug('PING - min_rtt: ' + str(host.min_rtt))
-        LOGGER.debug('PING - avg_rtt: ' + str(host.avg_rtt))
-        LOGGER.debug('PING - packet_loss: ' + str(host.packet_loss))
+        LOGGER.debug("PING - max_rtt: " + str(host.max_rtt))
+        LOGGER.debug("PING - min_rtt: " + str(host.min_rtt))
+        LOGGER.debug("PING - avg_rtt: " + str(host.avg_rtt))
+        LOGGER.debug("PING - packet_loss: " + str(host.packet_loss))
         UP.set(1)
     except Exception as e:
         LOGGER.error("Could not process ICMP Echo requests: %s", e)
