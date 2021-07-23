@@ -30,6 +30,6 @@ help:
 	@echo " init 	 		install all dependencies for environment"
 	@echo " build   		build all containers"
 	@echo " run			Run all containers using docker-compose"
-	@echo " stop			Run all containers using docker-compose"
+	@echo " stop			Stop all containers using docker-compose"
 	@echo " urls			List services URLs running on docker-compose"
 	@echo " help			display this information"
