@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: im-http-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /metrics
+        backend:
+          serviceName: im
+          servicePort: 8000

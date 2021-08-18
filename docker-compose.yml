@@ -85,7 +85,7 @@ services:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
       - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
+#      - /var/lib/docker/:/var/lib/docker:ro
     logging:
       driver: loki
       options:

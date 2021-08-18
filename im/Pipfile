@@ -19,8 +19,5 @@ prometheus_client = "*"
 icmplib = "*"
 requests = "*"
 
-[requires]
-python_version = "3.8"
-
 [pipenv]
 allow_prereleases = true
