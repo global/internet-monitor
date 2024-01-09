@@ -4,8 +4,6 @@ services:
   im:
     build:
       context: ./im
-      args:
-        appversion: 0.4.0
     ports:
       - "8000:8000"
     logging:
@@ -13,20 +11,8 @@ services:
       options:
         loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
 
-  # alerthook:
-  #   build:
-  #     context: ./alerthook
-  #   environment:
-  #     - PYTHONUNBUFFERED=1
-  #   ports:
-  #     - "5000:5000"
-  #   # logging:
-  #   #   driver: loki
-  #   #   options:
-  #   #     loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
-
   prometheus:
-      image: prom/prometheus:latest
+      image: prom/prometheus:v2.49.0-rc.2
       volumes:
         - ./prometheus/:/etc/prometheus/
         - ./alertmanager/:/etc/alertmanager
@@ -41,7 +27,7 @@ services:
         - '--log.level=error'
 
   alertmanager:
-      image: prom/alertmanager:latest
+      image: prom/alertmanager:v0.26.0
       volumes:
         - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
       ports:
@@ -51,7 +37,7 @@ services:
         - '--log.level=error'
 
   node-exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter:v1.7.0
     container_name: monitoring_node_exporter
     restart: unless-stopped
     expose:
@@ -60,7 +46,7 @@ services:
       - '--log.level=error'
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:9.5.15
     depends_on:
       - prometheus
     ports:
@@ -92,7 +78,7 @@ services:
         loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
 
   loki:
-      image: grafana/loki:latest
+      image: grafana/loki:main-61a4205
       ports:
         - "3100:3100"
       command: -config.file=/etc/loki/local-config.yaml -log.level=error
