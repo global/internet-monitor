@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "im"
+version = "0.5.0"
+description = ""
+authors = ["Ramiro Tician <ramirotician@proton.me>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+APScheduler = "^3.10.4"
+prometheus-client = "^0.19.0"
+icmplib = "^3.0.4"
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+flake8 = "^7.0.0"
+coverage = "^7.4.0"
+isort = "^5.13.2"
+black = "^23.12.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
