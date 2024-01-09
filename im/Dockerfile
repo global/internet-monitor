@@ -1,23 +1,23 @@
-FROM python:3.8
-ARG appversion
-LABEL maintainer="Anderson Goulart <global@kokre.io>"
-LABEL description="App that monitor PING latency and download/upload internet speed"
-LABEL version="$appversion"
-RUN apt-get update && apt-get install -y gosu make && apt-get clean
-WORKDIR /app
-COPY . /app/
-RUN make build
-RUN make clean
+FROM python:3.11 as builder
 
+RUN pip install poetry
 
-FROM python:3.8
-ARG appversion
-LABEL maintainer="Anderson Goulart <global@kokre.io>"
-LABEL description="App that monitor PING latency and download/upload internet speed"
-LABEL version="$appversion"
-RUN apt-get update && apt-get install -y gosu && apt-get clean
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
+
 WORKDIR /app
-COPY --from=0 /app .
-RUN pip3 install pipenv --upgrade && PIPENV_VERBOSITY=-1 pipenv install
-ENV PYTHONPATH=/app:$PYTHONPATH
-CMD [ "gosu", "root", "pipenv", "run", "python", "/app/im/monitor.py" ]
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
+
+FROM python:3.11-slim as app
+
+ENV VIRTUAL_ENV=/app/.venv \
+    PATH="/app/.venv/bin:$PATH"
+
+COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
+
+COPY im ./im
+
+ENTRYPOINT [ "python", "-m", "im.main" ]
